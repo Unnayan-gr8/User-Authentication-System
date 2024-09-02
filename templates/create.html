@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New User Registration</title>
+    <style>
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes glow {
+            0% {
+                box-shadow: 0 0 10px #28a745;
+            }
+            50% {
+                box-shadow: 0 0 20px #28a745;
+            }
+            100% {
+                box-shadow: 0 0 10px #28a745;
+            }
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            animation: fadeIn 1s ease-in-out;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .container:hover {
+            transform: translateY(-10px);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333333;
+            margin-bottom: 20px;
+            font-size: 24px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .form-group label {
+            display: block;
+            color: #555555;
+            margin-bottom: 8px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="password"],
+        .form-group input[type="tel"],
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #dddddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease-in-out;
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group input[type="password"]:focus,
+        .form-group input[type="tel"]:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #28a745;
+            animation: glow 1s ease-in-out infinite alternate;
+        }
+
+        .form-group select {
+            appearance: none;
+            background-color: #ffffff;
+            background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="none" stroke="gray" stroke-width="1" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 10px;
+        }
+
+        .form-group select:hover {
+            cursor: pointer;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            animation: fadeIn 2.5s ease-in-out;
+        }
+
+        .button-group button {
+            width: 48%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+
+        .button-group button:hover {
+            background-color: #218838;
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>New User Registration</h2>
+        {% for message in get_flashed_messages() %}
+            {{ message }}
+        {% endfor %}
+        <form action="/create" method="POST">
+            <div class="form-group">
+                <label for="user_id">User ID</label>
+                <input type="text" id="user_id" name="user_id" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="first_name">First Name</label>
+                <input type="text" id="first_name" name="first_name" required>
+            </div>
+            <div class="form-group">
+                <label for="last_name">Last Name</label>
+                <input type="text" id="last_name" name="last_name" required>
+            </div>
+            <div class="form-group">
+                <label for="phone_no">Phone Number</label>
+                <input type="tel" id="phone_no" name="phone_no" pattern="[0-9]{10}" required>
+            </div>
+            <div class="form-group">
+                <label for="security_question">Security Question</label>
+                <select id="security_question" name="security_question" required>
+                    <option value="">Select a security question</option>
+                    <option value="pet_name">What was the name of your first pet?</option>
+                    <option value="first_school">What was the name of your first school?</option>
+                    <option value="mother_maiden">What is your mother's maiden name?</option>
+                    <option value="favorite_teacher">Who was your favorite teacher?</option>
+                    <option value="birth_city">In which city were you born?</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="security_answer">Answer</label>
+                <input type="text" id="security_answer" name="security_answer" required>
+            </div>
+            <div class="button-group">
+                <button type="reset">Reset</button>
+                <button type="submit">Register</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
